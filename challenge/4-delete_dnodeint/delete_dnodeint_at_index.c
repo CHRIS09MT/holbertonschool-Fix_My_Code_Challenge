@@ -36,7 +36,7 @@ int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
     /* If the node to be deleted is the first node */
     if (tmp == *head)
     {
-        *head = tmp->next;
+        *head = tmp->next;  /* Move head to the next node */
         if (*head != NULL)  /* Update the prev pointer if the list is not empty */
         {
             (*head)->prev = NULL;
