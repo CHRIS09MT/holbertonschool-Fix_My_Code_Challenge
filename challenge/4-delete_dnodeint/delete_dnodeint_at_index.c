@@ -11,53 +11,43 @@
  */
 int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 {
-    dlistint_t *tmp;
-    unsigned int p = 0;
+	dlistint_t *saved_head;
+	dlistint_t *tmp;
+	unsigned int p;
 
-    if (*head == NULL)
-    {
-        return (-1);
-    }
-
-    tmp = *head;
-
-    /* Traverse the list to find the node at the given index */
-    while (tmp != NULL && p < index)
-    {
-        tmp = tmp->next;
-        p++;
-    }
-
-    if (tmp == NULL)  /* Index is out of range */
-    {
-        return (-1);
-    }
-
-    /* If the node to be deleted is the first node */
-    if (tmp == *head)
-    {
-        *head = tmp->next;  /* Move head to the next node */
-        if (*head != NULL)  /* Update the prev pointer if the list is not empty */
-        {
-            (*head)->prev = NULL;
-        }
-    }
-    else
-    {
-        /* Update the prev pointer of the next node, if it exists */
-        if (tmp->next != NULL)
-        {
-            tmp->next->prev = tmp->prev;
-        }
-
-        /* Update the next pointer of the previous node */
-        if (tmp->prev != NULL)
-        {
-            tmp->prev->next = tmp->next;
-        }
-    }
-
-    free(tmp);  /* Free the memory of the node */
-
-    return (1);
+	if (*head == NULL)
+	{
+		return (-1);
+	}
+	saved_head = *head;
+	p = 0;
+	while (p < index && *head != NULL)
+	{
+		*head = (*head)->next;
+		p++;
+	}
+	if (p != index)
+	{
+		*head = saved_head;
+		return (-1);
+	}
+	if (0 == index)
+	{
+		tmp = (*head)->next;
+		free(*head);
+		*head = tmp;
+		if (tmp != NULL)
+		{
+			tmp->prev = NULL;
+		}
+	}
+	else
+	{
+		(*head)->prev->next = (*head)->next;
+		free(*head);
+		if ((*head)->next)
+			(*head)->next->prev = (*head)->prev;
+		*head = saved_head;
+	}
+	return (1);
 }
