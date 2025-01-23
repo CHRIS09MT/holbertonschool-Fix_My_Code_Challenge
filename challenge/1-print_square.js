@@ -14,7 +14,7 @@ if (process.argv.length <= 2) {
     process.exit(1)
 }
 
-size = parseInt(process.argv[2])  //Aquí estaba el error, ya venía por defecto el argumento, solo era eliminar el 16
+size = parseInt(process.argv[2], 10)  //Aquí estaba el error, ya venía por defecto el argumento, solo era eliminar el 16 y cambiarlo por base 10
 
 for (let i = 0 ; i < size ; i ++) {
     for (let j = 0 ; j < size ; j ++) {
