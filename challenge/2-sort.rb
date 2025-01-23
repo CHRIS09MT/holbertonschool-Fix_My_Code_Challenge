@@ -1,9 +1,3 @@
-###
-#
-#  Sort integer arguments (ascending) 
-#
-###
-
 result = []
 ARGV.each do |arg|
     # skip if not integer
@@ -20,12 +14,12 @@ ARGV.each do |arg|
         if result[i] < i_arg
             i += 1
         else
-            result.insert(i, i_arg)  #Era eliminar el -1
+            result.insert(i, i_arg)  # Corregido aquí, se inserta en la posición correcta
             is_inserted = true
             break
         end
     end
-    result << i_arg if !is_inserted
+    result << i_arg if !is_inserted  # Si no se insertó, se agrega al final
 end
 
 puts result
